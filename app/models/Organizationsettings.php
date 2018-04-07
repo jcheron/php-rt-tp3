@@ -71,7 +71,7 @@ class Organizationsettings{
 	}
 
 	 public function __toString(){
-		return $this->idSettings;
+		return $this->value;
 	}
 
 }

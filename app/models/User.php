@@ -109,7 +109,7 @@ class User{
 	}
 
 	 public function __toString(){
-		return $this->email;
+		return $this->firstname." <b>".strtoupper($this->lastname)."</b>";
 	}
 
 }
