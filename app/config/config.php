@@ -21,10 +21,11 @@ return array(
 							$jquery=new \Ajax\php\ubiquity\JsUtils(["defer"=>true],$controller);
 							$jquery->semantic(new \Ajax\Semantic());
 							return $jquery;
-						}],
+						}
+		],
 		"cache"=>["directory"=>"cache/","system"=>"Ubiquity\\cache\\system\\ArrayCache","params"=>[]],
 		"mvcNS"=>["models"=>"models","controllers"=>"controllers","rest"=>"rest"],
 		"isRest"=>function(){
 			return \Ubiquity\utils\http\URequest::getUrlParts()[0]==="rest";
-		}
+		},
 );

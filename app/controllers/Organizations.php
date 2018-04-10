@@ -16,4 +16,5 @@ class Organizations extends \Ubiquity\controllers\ControllerBase{
 		$orga=DAO::getOne("models\\Organization", $idOrga,true,true);
 		$this->loadView("Organizations/display.html",["orga"=>$orga]);
 	}
+
 }
