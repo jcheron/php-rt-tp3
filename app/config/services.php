@@ -9,9 +9,13 @@ use Ubiquity\orm\DAO;
  }*/
 
 CacheManager::startProd($config);
-$db=$config["database"];
-if($db["dbName"]!==""){
-	DAO::connect($db["type"],$db["dbName"],@$db["serverName"],@$db["port"],@$db["user"],@$db["password"],@$db["options"],@$db["cache"]);
+if(!$config["isRest"]()){
+	$db=$config["database"];
+	if($db["dbName"]!==""){
+		DAO::connect($db["type"],$db["dbName"],@$db["serverName"],@$db["port"],@$db["user"],@$db["password"],@$db["options"],@$db["cache"]);
+	}
+	Router::start();
+	Router::addRoute("_default", "controllers\Main");
+}else{
+	Router::startRest();
 }
-Router::start();
-Router::addRoute("_default", "controllers\Main");
