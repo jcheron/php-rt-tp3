@@ -21,7 +21,7 @@ return array(
 	"debug"=>false,
 	"di"=>array(
 			"jquery"=>function ($controller){
-					$jquery=new \Ajax\php\ubiquity\JsUtils(["defer"=>true,"debug"=>false],$controller);
+					$jquery=new \Ajax\php\ubiquity\JsUtils(["defer"=>true,"debug"=>true],$controller);
 					$jquery->semantic(new \Ajax\Semantic());
 					return $jquery;
 					}

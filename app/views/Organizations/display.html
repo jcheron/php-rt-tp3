@@ -1,7 +1,29 @@
-<h1>{{orga}}</h1>
-<h2>Groupes</h2>
-<ul>
-{% for groupe in orga.groupes %}
-	<li>{{ groupe }}</li>
-{% endfor %}
-</ul>
+{% extends "base.html" %}
+{% block body %}
+<h2 class="ui header">
+    {{orga.name}}
+    <div class="sub header">{{orga.domain}}</div>
+</h2>
+<div class="ui two columns grid">
+	<div class="four wide column">
+		<h3 class="ui header">
+			<i class="ui users icon"></i>
+			<div class="content">Groupes</div>
+		</h3>
+		<ul>
+		{% for groupe in orga.groupes %}
+			<li><a href="Organizations/display/{{orga.id}}/{{groupe.id}}" data-target="#users">{{ groupe }}</a></li>
+		{% else %}
+			<div class="ui message">Aucun groupe</div>
+		{% endfor %}
+			<li><a href="Organizations/display/{{orga.id}}" data-target="#users">Tous les utilisateurs</a></li>
+		</ul>
+	</div>
+	<div class="twelve wide column">
+		<div id="users">
+			{{users | raw}}
+		</div>
+	</div>
+</div>
+{{ script_foot | raw }}
+{% endblock %}

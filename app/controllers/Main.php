@@ -1,6 +1,5 @@
 <?php
 namespace controllers;
- use Ajax\php\ubiquity\JsUtils;
 
  /**
  * Controller Main
@@ -8,7 +7,8 @@ namespace controllers;
  **/
 class Main extends ControllerBase{
 
-	public function index(){		$semantic=$this->jquery->semantic();
+	public function index(){		
+		$semantic=$this->jquery->semantic();
 		$header=$semantic->htmlHeader("header",1);
 		$header->asTitle("Welcome to Ubiquity","Version ".\Ubiquity\core\Framework::version);
 		$bt=$semantic->htmlButton("btTest","Semantic-UI Button");

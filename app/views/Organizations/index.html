@@ -1,6 +1,9 @@
-<h1>Organisations</h1>
+{% extends "base.html" %}
+{% block body %}
+<h2>Organisations</h2>
 <ul>
 	{% for orga in orgas %}
-		<li>{{orga}}</li>
+		<li><a href="Organizations/display/{{orga.id}}">{{orga}}</a></li>
 	{% endfor %}
 </ul>
+{% endblock %}

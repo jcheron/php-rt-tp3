@@ -1,0 +1,21 @@
+{% block header %}
+<style>
+	a.active{
+		font-weight: bold;
+		color: red;
+	}
+	a.active::after { 
+	    content: " →";
+	}
+</style>
+<h1>Messagerie Administration</h1>
+{% endblock %}
+{% block auth %}
+{{ _userInfo | raw }}
+{% endblock %}
+{% block message %}
+{{ message | raw }}
+{% endblock %}
+{% block body %}
+{% endblock %}
+{{ script_foot | raw }}
