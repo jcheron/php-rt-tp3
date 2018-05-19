@@ -12,11 +12,11 @@
 		</h3>
 		<ul>
 		{% for groupe in orga.groupes %}
-			<li><a href="Organizations/display/{{orga.id}}/{{groupe.id}}" data-target="#users">{{ groupe }}</a></li>
+			<li><a class="orga" href="Organizations/display/{{orga.id}}/{{groupe.id}}" data-target="#users">{{ groupe }}</a></li>
 		{% else %}
 			<div class="ui message">Aucun groupe</div>
 		{% endfor %}
-			<li><a href="Organizations/display/{{orga.id}}" data-target="#users">Tous les utilisateurs</a></li>
+			<li><a class="orga" href="Organizations/display/{{orga.id}}" data-target="#users">Tous les utilisateurs</a></li>
 		</ul>
 	</div>
 	<div class="twelve wide column">
@@ -25,5 +25,4 @@
 		</div>
 	</div>
 </div>
-{{ script_foot | raw }}
 {% endblock %}
