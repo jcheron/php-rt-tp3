@@ -2,12 +2,15 @@
 namespace controllers;
 use Ubiquity\orm\DAO;
 use Ubiquity\utils\http\URequest;
+use Ubiquity\controllers\auth\AuthController;
+use Ubiquity\controllers\auth\WithAuthTrait;
 
  /**
  * Controller Organizations
  * @property \Ajax\php\ubiquity\JsUtils $jquery
  **/
 class Organizations extends ControllerBase{
+	use WithAuthTrait;
 	
 	public function index(){
 		$organizations=DAO::getAll("models\\Organization");
@@ -21,7 +24,7 @@ class Organizations extends ControllerBase{
 			$orga=DAO::getOne("models\\Organization", $idOrga,true,true);
 			if(isset($orga)){
 				$users=$this->users($idOrga,$idGroupe,$orga->getUsers());
-				$this->jquery->getHref("a",null,["ajaxTransition"=>"random"]);
+				$this->jquery->getHref("a.orga",null,["ajaxTransition"=>"random"]);
 				$this->jquery->renderView("Organizations/display.html",["orga"=>$orga,"users"=>$users]);
 			}else{
 				$msg= $this->message("error", "Organization", "Organisation introuvable","warning circle");
@@ -53,10 +56,11 @@ class Organizations extends ControllerBase{
 					$users=DAO::getAll("models\\User","idOrganization=".$idOrga);
 				}
 		}
-		if(URequest::isAjax()){
-			$this->jquery->getHref("a.users",null,["ajaxTransition"=>"random"]);
-		}
+		$this->jquery->getHref("a.users",null,["ajaxTransition"=>"random"]);
 		return $this->jquery->renderView("Organizations/users.html",compact("users","title","message"),true);
 	}
 	
+	protected function getAuthController(): AuthController {
+		return new AuthCtrl();
+	}
 }
