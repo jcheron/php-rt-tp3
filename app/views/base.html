@@ -5,7 +5,7 @@
 		color: red;
 	}
 	a.active::after { 
-	    content: " →";
+	//    content: " →";
 	}
 </style>
 <h1>Messagerie Administration</h1>
@@ -17,5 +17,7 @@
 {{ message | raw }}
 {% endblock %}
 {% block body %}
+{% endblock %}
+{% block _crud %}
 {% endblock %}
 {{ script_foot | raw }}

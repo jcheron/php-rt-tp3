@@ -1,13 +1,15 @@
 <?php
 namespace controllers;
  use Ubiquity\orm\DAO;
+use Ubiquity\controllers\auth\AuthController;
+use Ubiquity\controllers\auth\WithAuthTrait;
 
  /**
  * Controller Users
  * @property \Ajax\php\ubiquity\JsUtils $jquery
  **/
 class Users extends ControllerBase{
-
+	use WithAuthTrait;
 	public function index(){
 		
 	}
@@ -27,5 +29,10 @@ class Users extends ControllerBase{
 		$this->jquery->getHref("a.edit",null,["ajaxTransition"=>"random"]);
 		$this->jquery->renderDefaultView(["user"=>$user]);
 	}
+	
+	protected function getAuthController(): AuthController {
+		return new AuthCtrl();
+	}
+
 
 }

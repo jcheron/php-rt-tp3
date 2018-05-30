@@ -14,7 +14,7 @@ class Organizations extends ControllerBase{
 	
 	public function index(){
 		$organizations=DAO::getAll("models\\Organization");
-		$this->loadView("Organizations/index.html",["orgas"=>$organizations]);
+		$this->jquery->renderView("Organizations/index.html",["orgas"=>$organizations]);
 	}
 	
 	public function display($idOrga,$idGroupe=null){
@@ -61,6 +61,6 @@ class Organizations extends ControllerBase{
 	}
 	
 	protected function getAuthController(): AuthController {
-		return new AuthCtrl();
+		return new AuthExt();
 	}
 }

@@ -1,0 +1,23 @@
+{% extends "@framework/crud/index.html" %}
+{% block _before %}
+{% endblock %}
+{% block btAddNew %}
+	<a id="btAddNew" class="ui button red _new">
+	 <i class="icon plus"></i>
+	Ajouter un groupe...
+	</a>
+{% endblock %}
+{% block frm %}
+	{{ parent() }}
+{% endblock %}
+{% block dataTable %}
+	{{ parent() }}
+{% endblock %}
+{% block messages %}
+	{{ parent() }}
+{% endblock %}
+{% block details %}
+	{{ parent() }}
+{% endblock %}
+{% block _after %}
+{% endblock %}

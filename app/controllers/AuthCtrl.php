@@ -1,16 +1,15 @@
 <?php
 namespace controllers;
-use Ubiquity\controllers\Startup;
-use Ubiquity\utils\http\USession;
+
 use Ubiquity\utils\http\URequest;
 use controllers\auth\files\AuthCtrlFiles;
 use Ubiquity\controllers\auth\AuthFiles;
-use Ubiquity\orm\DAO;
+use Ubiquity\utils\http\USession;
 
  /**
  * Auth Controller AuthCtrl
  **/
-class AuthCtrl extends \Ubiquity\controllers\auth\AuthController{
+class AuthCtrl extends BaseAuth{
 
 	public function initialize(){
 		if(!URequest::isAjax()){
@@ -18,36 +17,6 @@ class AuthCtrl extends \Ubiquity\controllers\auth\AuthController{
 		}
 	}
 	
-	protected function onConnect($connected) {
-		$urlParts=$this->getOriginalURL();
-		USession::set($this->_getUserSessionKey(), $connected);
-		if(isset($urlParts)){
-			Startup::forward(implode("/",$urlParts));
-		}else{
-			$this->forward("controllers\\Organizations","display",[$connected->getOrganization()->getId()],true,true);
-		}
-	}
-	
-	protected function _connect() {
-		if(URequest::isPost()){
-			$email=URequest::post($this->_getLoginInputName());
-			$password=URequest::post($this->_getPasswordInputName());
-			$user=DAO::getOne("models\\User", "email='{$email}'");
-			if(isset($user) && $user->getPassword()==$password){
-				return $user;
-			}
-		}
-		return;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Ubiquity\controllers\auth\AuthController::isValidUser()
-	 */
-	public function _isValidUser() {
-		return USession::exists($this->_getUserSessionKey());
-	}
-
 	public function _getBaseRoute() {
 		return 'AuthCtrl';
 	}
@@ -70,7 +39,7 @@ class AuthCtrl extends \Ubiquity\controllers\auth\AuthController{
 	 * @see \Ubiquity\controllers\auth\AuthController::_displayInfoAsString()
 	 */
 	public function _displayInfoAsString() {
-		return false;
+		return true;
 	}
 	/**
 	 * {@inheritDoc}
@@ -88,8 +57,32 @@ class AuthCtrl extends \Ubiquity\controllers\auth\AuthController{
 	public function _getBodySelector() {
 		return "#body";
 	}
+	/**
+	 * {@inheritDoc}
+	 * @see \Ubiquity\controllers\auth\AuthController::_checkConnectionTimeout()
+	 */
+	public function _checkConnectionTimeout() {
+		return 30000;
+	}
+	/**
+	 * {@inheritDoc}
+	 * @see \controllers\BaseAuth::_isValidUser()
+	 */
+	public function _isValidUser() {
+		$valid=parent::_isValidUser ();
+		if($valid && $this->_action=="display" && $this->_controller=="controllers\Organizations"){
+			$user=USession::get($this->_getUserSessionKey());
+			$valid=$user->getOrganization()->getId()==$this->_actionParams[0];
+			if(!$valid){
+				$this->_setNoAccessMsg("Vous n'appartenez pas à cette organisation","Accès non autorisé");
+				$this->_setLoginCaption("Se connecter avec un autre compte");
+				$bt=$this->jquery->semantic()->htmlButton("btReturn","Retourner à la page précédente");
+				$bt->onClick("window.history.go(-1); return false;");
+			}
+		}
+		return $valid;
+	}
 
-	
-	
+
 
 }
