@@ -9,7 +9,7 @@
 <div class="ui tertiary inverted red compact segment">
 {% endblock %}
 {% block _userInfo %}
-	{{ parent() }}
+	{{ connected | raw }}&nbsp;<span class="ui label"><i class="ui building icon"></i>{{connected.organization}}</span>&nbsp;
 {% endblock %}
 {% block _logoutButton %}
 	{{ parent() }}
