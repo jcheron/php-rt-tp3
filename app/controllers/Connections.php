@@ -8,11 +8,24 @@ use controllers\crud\events\ConnectionsEvents;
 use Ubiquity\controllers\crud\CRUDEvents;
 use controllers\crud\files\ConnectionsFiles;
 use Ubiquity\controllers\crud\CRUDFiles;
+use Ubiquity\controllers\auth\AuthController;
+use Ubiquity\controllers\auth\WithAuthTrait;
+use Ubiquity\utils\http\URequest;
 
  /**
  * CRUD Controller Connections
  **/
 class Connections extends \Ubiquity\controllers\crud\CRUDController{
+	use WithAuthTrait{
+		initialize as _initializeAuth;
+	}
+	
+	public function initialize(){
+		$this->_initializeAuth();
+		if(!URequest::isAjax()){
+			$this->loadView("main/vHeader.html");
+		}
+	}
 	
 	public function __construct(){
 		parent::__construct();
@@ -47,6 +60,10 @@ class Connections extends \Ubiquity\controllers\crud\CRUDController{
 	}
 	
 	public function deleteAll($idUser){
-		$this->_deleteMultiple($idUser, "deleteAll", "#body", "idUser=".$idUser);
+		$this->_deleteMultiple($idUser, "deleteAll", "#zone-co", "idUser=".$idUser);
 	}
+	protected function getAuthController(): AuthController {
+		return new AuthExt();
+	}
+
 }
