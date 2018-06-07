@@ -45,7 +45,8 @@ class Connections extends \Ubiquity\controllers\crud\CRUDController{
 	public function _getInstancesFilter($model) {
 		return "1=1 order by idUser DESC,dateCo DESC";
 	}
-
-
-
+	
+	public function deleteAll($idUser){
+		$this->_deleteMultiple($idUser, "deleteAll", "#body", "idUser=".$idUser);
+	}
 }

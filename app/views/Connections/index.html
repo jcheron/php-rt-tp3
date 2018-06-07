@@ -1,6 +1,16 @@
 {% extends "@framework/crud/index.html" %}
 {% block _before %}
-	{{ parent() }}
+	<div class="ui segment" id="body">
+	<h2 class="ui header">
+		<i class="large icons">
+    		<i class="sign in icon"></i>
+    		<i class="inverted corner cogs icon"></i>
+  		</i>
+		<div class="content">
+			Administration des connexions
+			<div class="sub header">Gestion de l'historique des connexions par utilisateur</div>
+		</div>
+	</h2>
 {% endblock %}
 {% block btAddNew %}
 {% endblock %}
@@ -20,7 +30,7 @@
 	{{ parent() }}
 {% endblock %}
 {% block _after %}
-	{{ parent() }}
+	</div>
 {% endblock %}
 {% block script %}
 	{{ parent() }}
